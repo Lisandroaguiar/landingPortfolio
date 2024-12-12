@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Lisandro Aguiar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .btn-custom {
+            background-color: #0044cc;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #003399;
+        }
+
+        .typewriter {
+            overflow: hidden; 
+            white-space: nowrap; 
+            border-right: 2px solid #fff; 
+            width: 50ch; /* Ajustado al largo del texto completo */
+            
+            animation: typing 4s steps(50) forwards, blink 0.5s step-end 4s 6;
+        }
+        .typewriter span {
+    display: block; /* Cada línea se comportará como un bloque separado */
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #fff;
+    width: 0; /* Inicialmente el ancho es 0 para que el texto se escriba */
+    animation: typing 2s steps(30) forwards, blink 0.5s step-end infinite;
+}
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 50ch; }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+
+        .description-text {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Canvas -->
+    <div id="interactive-sketch" class="interactive-bg"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Principal mockup</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container text-center mt-4">
+        <div class="row align-items-center">
+            <!-- Profile Image -->
+            <div class="col-md-2 text-right">
+                <img src="https://i.imgur.com/auCD7pD.png" alt="Foto de perfil" class="profile-img">
+                <p>  Futuro diseñador multimedia especializado en creatividad digital y tecnologías interactivas.</p>
+                
+                <a href="#" class="btn btn-custom">¡Mira mi portfolio!</a>
+            </div>
+
+            <!-- Description -->
+            <div class="col-md-4">
+                <h1>Hola, soy Lisandro Aguiar</h1>
+                <p class="mt-6 description-text">
+                    Futuro diseñador multimedia con un recorrido en el que he podido desarrollar proyectos con creatividad,
+                    tecnología y funcionalidad. Le doy un enfoque a partir de la exploración de herramientas interactivas,
+                    diseño generativo y experiencias digitales que vinculan a las personas con ideas novedosas.
+                </p>
+                <a href="#" class="btn btn-custom">¡A ver tu portfolio!</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- p5.js Sketch -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+    <script>
+        // Example p5.js sketch
+
+        let particulas;
+function setup() {
+
+  let canvas=createCanvas(windowWidth,windowHeight);
+
+  canvas.parent('interactive-sketch');
+
+
+particulas=[100];
+
+for(let i=0; i<10; i++){
+  particulas[i]=new Escena(2);
+particulas[i].inicializarParticulas();
+
+}
+background(0);
+
+}
+
+
+function draw() {background(0,30);
+
+
+for(let i=0; i<particulas.length; i++){
+particulas[i].dibujarParticulas();
+particulas[i].actualizarParticulas();
+
+}
+}
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+
+        class Escena {
+  constructor(cantParticulas_) {
+    this.cantParticulas=cantParticulas_;
+    this.particulasRojas=[this.cantParticulas];
+    this.particulasVerdes=[this.cantParticulas];
+    this.particulasAzules=[this.cantParticulas];
+    this.valor1_=round(random(3));
+
+    this.valor2_=round(random(3));
+
+    this.valor3_=round(random(3));
+  }
+
+  crearParticulasRojas() {
+    for (let i=0; i<this.cantParticulas; i++) {
+
+      this.particulasRojas[i]=new Particula(random(width), random(height), random(0.9), random(0.1, 0.4), random(0.1, 2), color(random(255), 0, 0));
+    }
+    console.log(this.particulasRojas.lenght);
+  }
+
+  crearParticulasVerdes() {
+
+    for (let i=0; i<this.cantParticulas; i++) {
+
+      this.particulasVerdes[i]=new Particula(random(width), random(height), random(0.9), random(0.1, 0.9), random(0.1, 2), color(random(255)));
+    }
+  }
+
+  crearParticulasAzules() {
+
+    for (let i=0; i<this.cantParticulas; i++) {
+
+      this.particulasAzules[i]=new Particula(random(width), random(height), random(0.9), random(0.1, 2), random(0.1, 3), color(random(40), random(90), random(100,255)));
+    }
+  }
+
+  inicializarParticulas() {
+    this.crearParticulasRojas();
+    this.crearParticulasVerdes();
+    this.crearParticulasAzules();
+  }
+
+  dibujarParticulas() {
+    for (let i=0; i<this.cantParticulas; i++) {
+
+      this.particulasAzules[i].dibujarParticula();
+    }
+    for (let i=0; i<this.cantParticulas*0.1; i++) {
+
+      this.particulasVerdes[i].dibujarParticula();
+    }
+
+    for (let i=0; i<this.cantParticulas*0.03; i++) {
+
+      this.particulasRojas[i].dibujarParticula();
+    }
+  }
+  actualizarParticulas() {
+    for (let i=0; i<this.cantParticulas; i++) {
+console.log(this.valor1_);
+      this.particulasAzules[i].comportamientoParticula(this.valor1_);
+      this.particulasRojas[i].comportamientoParticula(this.valor2_);
+      this.particulasVerdes[i].comportamientoParticula(this.valor3_);
+    }
+  }
+
+  colisionEntreParticulas(particula1, particula2) {
+    let distanciaEntreParticulas= dist(particula1.posX, particula1.posY, particula2.posX, particula2.posY);
+    if (distanciaEntreParticulas<particula1.tam+particula2.tam/2) {
+      particula1.posX+=random(10);
+      particula2.posX+=random(10);
+    }
+  }
+}
+class Particula {
+
+constructor(x_, y_, velocidad_, tam_, anchoLinea_, colorLinea_) {
+  this.posX=x_;
+  this.posY=y_
+    this.velocidad=velocidad_
+    this.tam=tam_;
+  this.anchoLinea=anchoLinea_
+    this.colorLinea=colorLinea_;
+  this.angulo=0;
+}
+
+dibujarParticula() {
+  push();
+  noFill()
+    strokeWeight(this.anchoLinea);
+  stroke(this.colorLinea);
+  ellipse(this.posX, this.posY, this.tam, this.tam);
+  pop();
+}
+
+seguirMouse() {
+  if (this.posX<mouseX) {
+    this.posX+=this.velocidad;
+  } else if (this.posX>mouseX) {
+    this.posX-=this.velocidad
+  }
+  if (this.posY<mouseY) {
+    this.posY+=this.velocidad
+  } else if (this.posY>mouseY) {
+    this.posY-=this.velocidad
+  }
+}
+
+comportamientoParticula(tipoDeComportamiento_) {
+
+  let distanciaAlMouse = dist(mouseX, mouseY, this.posX, this.posY);
+  if (distanciaAlMouse<this.tam*30) {
+    this.seguirMouse();
+  } else {
+    this.angulo++;
+    if (this.angulo>=1000) {
+      this.angulo=0;
+    }
+
+
+    let anguloMapeado=map(this.angulo, 0, 1000, 0, TWO_PI)
+
+      if (tipoDeComportamiento_==0) {
+
+      this.posX+=1/sin(anguloMapeado);
+      this.posY+=1/cos(anguloMapeado);
+    } else if (tipoDeComportamiento_==1) {
+      this.posX+=1/sin(anguloMapeado);
+      this.posY+=cos(anguloMapeado);
+    } else if (tipoDeComportamiento_==2) {
+      this.posX+=sin(anguloMapeado);
+      this.posY+=1/cos(anguloMapeado);
+    } else if (tipoDeComportamiento_==3) {
+      this.posX+=sin(anguloMapeado);
+      this.posY+=cos(anguloMapeado);
+    }
+
+
+
+    if (this.posX>width) {
+      this.posX=random(100);
+    }
+    if (this.posX<0) {
+      this.posX=random(800, width);
+    }
+
+    if (this.posY>height) {
+      this.posY=random(100);
+    }
+    if (this.posY<0) {
+      this.posY=random(800, height);
+    }
+  }
+}
+actualizarParticula() {
+  this.comportamientoParticula();
+}
+}
+
+
+
+    </script>
+</body>
+</html>
